@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Remover</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="stylesheet" href="istyle.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Remove the Background from any Image</h1>
+        <form action="#" method="post" enctype="multipart/form-data">
+            <label for="bild">Upload Image:</label>
+            <input type="file" id="bild" name="bild" accept="image/*">
+            <br>
+            <label for="bgSelect">Wähle Hintergrund:</label>
+            <select id="bgSelect">
+                <option value="transparent">Transparent</option>
+                <option value="sky">Sky</option>
+                <option value="forest">Forest</option>
+                <option value="neon">Neon</option>
+            </select>
+            <br>
+            <label>Oder lade dein eigenes Hintergrundbild hoch:</label>
+            <input type="file" id="customBg" accept="image/*">
+            <br>
+            <label>Skalierung des Hintergrunds:</label>
+            <input type="range" id="bgScale" min="0.5" max="3" step="0.1" value="1">
+            <span id="bgScaleValue">1</span>
+            <br>
+            <label>Verschiebung des Hintergrunds:</label>
+            <input type="range" id="bgXShift" min="-200" max="200" step="1" value="0">
+            <span id="bgXShiftValue">0</span>
+            <input type="range" id="bgYShift" min="-200" max="200" step="1" value="0">
+            <span id="bgYShiftValue">0</span>
+            <br>
+            <button type="button" id="removeBtn">Hintergrund Entfernen</button>
+        </form>
+        <canvas id="canvas"></canvas>
+        <br>
+        <button id="downloadBtn" style="display: none;">Download Image</button>
+        <footer>
+            <p>&copy; 2025 Kiritoova</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+    <script>
+        // JavaScript bleibt unverändert...
+    </script>
+</body>
+</html>
