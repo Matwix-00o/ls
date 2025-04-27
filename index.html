@@ -44,10 +44,78 @@
             <p>&copy; 2025 Kiritoova</p>
         </footer>
     </div>
+    <script>
+        // Variablen für das Bild und Canvas
+    let img = new Image();
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+    
+    document.getElementById("removeBtn").addEventListener("click", function () {
+        let fileInput = document.getElementById("bild");
+        let bgInput = document.getElementById("customBg");
+        
+        if (fileInput.files.length > 0) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                img.src = e.target.result;
+                img.onload = function () {
+                    // Canvas-Größe an Bild anpassen
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                };
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    });
+    
+    // Hintergrund skalieren und verschieben
+    document.getElementById("bgScale").addEventListener("input", function () {
+        document.getElementById("bgScaleValue").textContent = this.value;
+        applyBackground();
+    });
+    
+    document.getElementById("bgXShift").addEventListener("input", function () {
+        document.getElementById("bgXShiftValue").textContent = this.value;
+        applyBackground();
+    });
+    
+    document.getElementById("bgYShift").addEventListener("input", function () {
+        document.getElementById("bgYShiftValue").textContent = this.value;
+        applyBackground();
+    });
+    
+    function applyBackground() {
+        // Canvas Hintergrund anwenden und verschieben
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        let bgImage = document.getElementById("customBg").files[0];
+        if (bgImage) {
+            let bgReader = new FileReader();
+            bgReader.onload = function (e) {
+                let background = new Image();
+                background.src = e.target.result;
+                background.onload = function () {
+                    ctx.drawImage(background, parseInt(document.getElementById("bgXShift").value), parseInt(document.getElementById("bgYShift").value),
+                        canvas.width * parseFloat(document.getElementById("bgScale").value), canvas.height * parseFloat(document.getElementById("bgScale").value));
+                    ctx.drawImage(img, 0, 0);
+                };
+            };
+            bgReader.readAsDataURL(bgImage);
+        }
+    }
+    
+    document.getElementById("downloadBtn").addEventListener("click", function () {
+        let link = document.createElement("a");
+        link.href = canvas.toDataURL();
+        link.download = "image_with_background_removed.png";
+        link.click();
+    });
+
 
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     <script>
-        // JavaScript bleibt unverändert...
-    </script>
+
 </body>
 </html>
